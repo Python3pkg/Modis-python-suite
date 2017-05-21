@@ -172,11 +172,11 @@ class telecharger:
         while True:
             try:
                 #On va chercher toutes les dates disponible sur le serveur de la NSIDC pour un produit en particulier
-                self.log.log('c',Nom,u'Lister les Dates disponibles sur le serveur.')
+                self.log.log('c',Nom,'Lister les Dates disponibles sur le serveur.')
                 ListeDate=self.listeDates()
-                self.log.log('r',Nom,u'Lister les Dates disponibles sur le serveur.')
+                self.log.log('r',Nom,'Lister les Dates disponibles sur le serveur.')
                 #Chaque date est entrée comme clé dans un dictionnaire et une adresse du dossier de cette date y est assignée
-                self.log.log('i',Nom,str(len(ListeDate))+u' date(s) ont été trouvé.')
+                self.log.log('i',Nom,str(len(ListeDate))+' date(s) ont été trouvé.')
                 LListeDate=list(ListeDate)
                 break
             except:
@@ -195,25 +195,25 @@ class telecharger:
             image=imageObject.imageModis([])
             #Pour chacune des dates, Une liste des adresse de téléchargement est produite
             try:
-                self.log.log('c',Nom,u'Lister les fichier de téléchargement disponibles pour '+date)
+                self.log.log('c',Nom,'Lister les fichier de téléchargement disponibles pour '+date)
                 #Créer la liste des fichier à télécharger
                 dic=self.listefichiersATelecharger(ListeDate[date])
                 listFile=[imageObject.Afile(name,date,dic[name],name.split(".")[-1]) for name in dic]
                 #Créer l'image qui sera retournée
                 image=imageObject.imageModis(listFile)
                 ListeFichier=image.files
-                self.log.log('r',Nom,u'Lister les fichier de téléchargement disponibles pour '+date)
-                self.log.log('i',Nom,str(len(ListeFichier))+u' fichier(s) ont été trouvés pour '+date)
+                self.log.log('r',Nom,'Lister les fichier de téléchargement disponibles pour '+date)
+                self.log.log('i',Nom,str(len(ListeFichier))+' fichier(s) ont été trouvés pour '+date)
                 for fichier in ListeFichier:
-                    self.log.log('c',Nom,u'Télécharment pour le fichier '+fichier.name+u' du '+date)
+                    self.log.log('c',Nom,'Télécharment pour le fichier '+fichier.name+' du '+date)
                     
                     r=self.telechargerUnfichier(fichier.link,fichier.name)
                     if not r==None:
                         listeTrucsTelecharges.append(fichier.name)
-                        self.log.log('r',Nom,u'Télécharment pour le fichier '+fichier.name+u' du '+date)
-                        self.log.log('i',Nom,u'Le fichier '+fichier.name+u' du '+date+u' a une taille de '+str(r))
+                        self.log.log('r',Nom,'Télécharment pour le fichier '+fichier.name+' du '+date)
+                        self.log.log('i',Nom,'Le fichier '+fichier.name+' du '+date+' a une taille de '+str(r))
                     else:
-                        self.log.log('e',Nom,u'Télécharment pour le fichier '+fichier.name+u' du '+date)
+                        self.log.log('e',Nom,'Télécharment pour le fichier '+fichier.name+' du '+date)
                     with open(os.path.join(self.output, 'listfile'+self.produit.upper()+'.txt'),'a') as f:
                         f.write(fichier.name+'\n')
                 echecDeSuite=0
@@ -226,7 +226,7 @@ class telecharger:
                 yield image#date, listeTrucsTelecharges
 def main():
     for x in telecharger("mod10a2.006","user","password",date="2010-02-20",delta=20,tuiles=['h12v04','h13v04'],output="test/").telechargerTout():
-        print(x.files)
+        print((x.files))
 if __name__=='__main__':
     main()
     

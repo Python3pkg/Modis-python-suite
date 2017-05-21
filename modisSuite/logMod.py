@@ -54,9 +54,9 @@ class Log:
                     echo=self.echo
                 if echo:
                     try:
-                        print(self.TIMESTAMP.format(datetime.datetime.now())+programme+':'+self.error[sorte]+message)
+                        print((self.TIMESTAMP.format(datetime.datetime.now())+programme+':'+self.error[sorte]+message))
                     except:
-                        print(self.TIMESTAMP.format(datetime.datetime.now())+programme+':'+self.error[sorte]+message)
+                        print((self.TIMESTAMP.format(datetime.datetime.now())+programme+':'+self.error[sorte]+message))
                     
             
 
